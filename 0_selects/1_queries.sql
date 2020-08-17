@@ -1,27 +1,26 @@
--- SELECT students.id, students.name
--- FROM students
--- JOIN cohorts ON students.id = cohorts.id
--- WHERE cohort_id = '1'
--- GROUP BY students.id
+--- Get the names of all of the students from a single cohort.
+SELECT id, name 
+FROM students 
+WHERE cohort_id = 1
+ORDER BY name;
 
--- SELECT id, name 
--- FROM students 
--- WHERE cohort_id = 1
--- ORDER BY name;
+--- Select the total number of students who were in the first 3 cohorts.
+SELECT count(*)
+FROM students
+WHERE cohort_id IN ('1', '2', '3');
 
--- SELECT count(*)
--- FROM students
--- WHERE cohort_id IN ('1', '2', '3');
+--- Get all of the students that don't have an email or phone number.
+SELECT name, id
+FROM students
+WHERE email IS NULL OR phone IS NULL;
 
--- SELECT name, id
--- FROM students
--- WHERE email IS NULL OR phone IS NULL;
+--- Get all of the students without a gmail.com or phone number.
+SELECT name, email, cohort_id
+  FROM students
+ WHERE email NOT LIKE '%gmail.com' 
+   AND phone IS NULL;
 
--- SELECT name, email, cohort_id
---   FROM students
---  WHERE email NOT LIKE '%gmail.com' 
---    AND phone IS NULL;
-
+--- Get all of the students currently enrolled.
 SELECT name, email, phone
   FROM students
  WHERE end_date IS NOT NULL
